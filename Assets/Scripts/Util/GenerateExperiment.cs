@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UXF;
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class GenerateExperiment : MonoBehaviour
     {

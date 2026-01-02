@@ -2,7 +2,7 @@
 using UnityEngine.XR;
 using UXF;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class TrackingLossTracker : Tracker
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class ControllerController  : MonoBehaviour
     {

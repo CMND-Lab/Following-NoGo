@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class MotionSicknessHandler : MonoBehaviour
     {

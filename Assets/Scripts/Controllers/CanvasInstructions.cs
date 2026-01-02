@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class CanvasInstructions : MonoBehaviour
     {

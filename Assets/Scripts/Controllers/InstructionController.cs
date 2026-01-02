@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class InstructionController : MonoBehaviour
     {

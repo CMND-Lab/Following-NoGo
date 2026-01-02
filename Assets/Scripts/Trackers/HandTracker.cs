@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     /// <summary>
     /// Attach this component to a gameobject and assign it in the trackedObjects field in an ExperimentSession to automatically record position/rotation of the object at each frame.

@@ -4,7 +4,7 @@ using System;
 using UXF;
 using System.Drawing.Drawing2D;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class CanvasController : MonoBehaviour
     {

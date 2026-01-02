@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UXF;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class HeadTracker : Tracker
     {

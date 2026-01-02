@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class ResearcherCanvasController : MonoBehaviour
     {

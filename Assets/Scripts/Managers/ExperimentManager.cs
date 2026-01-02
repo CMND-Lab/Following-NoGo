@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 
-namespace SensorimotorContingencies
+namespace FollowingNoGo
 {
     public class ExperimentManager : MonoBehaviour
     {
         public Session session;        
         [SerializeField] TaskController taskController;
+        [SerializeField] LanternManager lanternManager;
         [SerializeField] CanvasController canvasController;
-        [SerializeField] List<GameObject> effectManagers;
 
         public GameObject experiment;
         public ControllerController rightController;
@@ -18,40 +18,23 @@ namespace SensorimotorContingencies
         
         private void Awake()
         {
-            DisableEffects();
-            taskController.inputManager.DisableTransform();
-
-            // Enable user interaction
-            rightController.UseInteractor(true);
-            leftController.UseInteractor(true);
-            rightController.UseLaser(true);
-            leftController.UseLaser(true);
-            
+            DisableExperiment();
             session.gameObject.SetActive(true);
-        }
-
-        public void DisableEffects()
-        {
-            foreach (GameObject obj in effectManagers)
-            {
-                obj.SetActive(false);
-            }
         }
 
         public void EnableExperiment()
         {
+            taskController.gameObject.SetActive(true);
             taskController.ResetTrial();
+
             rightController.UseLaser(false);
             leftController.UseLaser(false);
         }
 
         public void DisableExperiment()
         {
-            DisableEffects();
-
-            // Reset environment
-            taskController.ResetTrial();
-            taskController.startingPoint.gameObject.SetActive(false);
+            taskController.gameObject.SetActive(false);
+            lanternManager.HideLanterns();
 
             // Enable user interaction
             rightController.UseInteractor(true);
@@ -88,7 +71,6 @@ namespace SensorimotorContingencies
             TrialType trialType = (TrialType)session.CurrentTrial.settings.GetObject("type");
 
             //Set EndTrial flag to false (this sometimes doesn't happen on the last trial via TaskController, not sure why)
-            taskController.ResetTrial();
             Debug.Log("End of " + trialType.ToString() + " block");
 
             canvasController.EndOfBlock(trialType);
