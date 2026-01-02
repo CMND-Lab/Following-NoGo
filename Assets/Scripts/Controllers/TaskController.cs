@@ -23,11 +23,6 @@ namespace FollowingNoGo
 
         public TrialSetting trialSetting;
 
-        public void Start()
-        {
-            ResetTrial();
-        }
-
         // Called at the start of each trial via UFX
         public void RunTrial(Trial trial)
         {

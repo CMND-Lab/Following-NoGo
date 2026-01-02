@@ -24,7 +24,6 @@ namespace FollowingNoGo
 
         public void EnableExperiment()
         {
-            taskController.gameObject.SetActive(true);
             taskController.ResetTrial();
 
             rightController.UseLaser(false);
@@ -33,7 +32,6 @@ namespace FollowingNoGo
 
         public void DisableExperiment()
         {
-            taskController.gameObject.SetActive(false);
             lanternManager.HideLanterns();
 
             // Enable user interaction
