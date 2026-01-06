@@ -39,6 +39,7 @@ namespace FollowingNoGo
 
         public void EnterLantern(LanternLocaction location)
         {
+            Debug.Log("Enter lantern: " + location.ToString());
             if (location == LanternLocaction.Left)
             {
                 leftIsReady = true;
@@ -50,6 +51,7 @@ namespace FollowingNoGo
 
             if (leftIsReady && rightIsReady)
             {
+                Debug.Log("Both lanterns ready...");
                 leftLantern.UseStart(false);
                 leftLantern.UseChangingColour(true);
 
@@ -62,6 +64,7 @@ namespace FollowingNoGo
 
         public void ExitLantern(LanternLocaction location)
         {
+            Debug.Log("Exit lantern: " + location.ToString());
             if (location == LanternLocaction.Left)
             {
                 leftIsReady = false;

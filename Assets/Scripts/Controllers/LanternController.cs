@@ -1,3 +1,4 @@
+using Ookii.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,7 +37,8 @@ namespace FollowingNoGo
         private Animator animationController;
         private bool isAnimating = false;
         // Changes colour depending on whether the lantern is moving or still
-        [SerializeField] bool isMoving = false; 
+        [SerializeField] bool isMoving = false;
+        [SerializeField] LanternAnimation currentAnimation;
 
         // Tracked values
         private float currentDistance;
@@ -52,6 +54,40 @@ namespace FollowingNoGo
             animationController = GetComponent<Animator>();
 
             UseChangingColour(false);
+
+            currentAnimation = LanternAnimation.Reset;
+        }
+
+        private void Update()
+        {
+            if (updateColour)
+            {
+                Vector3 positionDiff = controllerObject.transform.position - lanternCenter.transform.position;
+                float positionDiffMag = Math.Abs(positionDiff.magnitude);
+
+                Debug.Log("PosDiff:" + positionDiffMag);
+
+                float activationValue = activationFunction.Gaussian(positionDiffMag);
+                Debug.Log("Activation:" + activationValue);
+
+                Color currentColour = isMoving ? movingColour : stillColour;
+                Color activatedColour = Color.Lerp(Color.black, currentColour, activationValue);
+                Color emissionColour = Color.Lerp(Color.black, activatedColour, emissionDarkness);
+
+                changingMat.color = currentColour;
+                changingMat.SetColor("_EmissionColor", emissionColour);
+
+                lanternLight.intensity = maxLightIntensity * activationValue;
+
+                // Save values
+                currentDistance = positionDiffMag;
+                currentActivation = activationValue;
+            }
+            else
+            {
+                currentDistance = float.NaN;
+                currentActivation = float.NaN;
+            }
         }
 
         public void UseStart(bool use)
@@ -79,34 +115,49 @@ namespace FollowingNoGo
             }
         }
 
-        private void Update()
+        public void Reset()
         {
-            if (updateColour) {
-                Vector3 positionDiff = controllerObject.transform.position - lanternCenter.transform.position;
-                float positionDiffMag = Math.Abs(positionDiff.magnitude);
+            TriggerAnimation(LanternAnimation.Reset);
+        }
 
-                Debug.Log("PosDiff:" + positionDiffMag);
+        void FinishedReset()
+        {
+            Debug.Log("Finished reset");
+        }
 
-                float activationValue = activationFunction.Gaussian(positionDiffMag);
-                Debug.Log("Activation:" + activationValue);
+        public void TriggerAnimation(LanternAnimation animation)
+        {
+            animationController.SetTrigger(animation.ToString().ToLower());
+            isAnimating = animation == LanternAnimation.Reset ? false : true;
+            isMoving = animation == LanternAnimation.Reset ? false : true;
 
-                Color newColour = Color.Lerp(Color.black, isMoving ? movingColour : stillColour, activationValue);
-                // changingMat.color = newColour;
+            currentAnimation = animation;
+        }
 
-                Color emissionColour = Color.Lerp(Color.black, newColour, emissionDarkness);
-                changingMat.SetColor("_EmissionColor", emissionColour);
-
-                lanternLight.intensity = maxLightIntensity * activationValue;
-
-                // Save values
-                currentDistance = positionDiffMag;
-                currentActivation = activationValue;
-            } else
+        public void PauseAnimation()
+        {
+            if (currentAnimation != LanternAnimation.Reset)
             {
-                currentDistance = float.NaN;
-                currentActivation = float.NaN;
+                animationController.speed = 0;
+                isMoving = false;
+            }
+        }
+
+        public void PlayAnimation()
+        {
+            if (currentAnimation != LanternAnimation.Reset)
+            {
+                animationController.speed = 1;
+                isMoving = true;
             }
         }
     } 
 
+    public enum LanternAnimation
+    {
+        Reset,
+        Circle,
+        Horizontal,
+        Vertical
+    }
 }

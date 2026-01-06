@@ -91,6 +91,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1726758772482316061, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2976351757232646398, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -101,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_Range
-      value: 0.075
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_Color.b
@@ -110,6 +114,10 @@ PrefabInstance:
     - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
+      propertyPath: m_Intensity
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_Lightmapping
@@ -311,7 +319,7 @@ MonoBehaviour:
   lanternCenter: {fileID: 2515255584440855688}
   controllerObject: {fileID: 0}
   updateColour: 0
-  maxLightIntensity: 0.5
+  maxLightIntensity: 0.05
   defaultMat: {fileID: 2100000, guid: f88392fbc86508946a08fb95c6219b3f, type: 2}
   changingMat: {fileID: 2100000, guid: e95b58bece795dc47b8a7c4fa5817587, type: 2}
   movingColour: {r: 0.7490196, g: 0.6544066, b: 0.1872549, a: 1}
