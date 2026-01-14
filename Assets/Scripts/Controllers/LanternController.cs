@@ -11,6 +11,7 @@ namespace FollowingNoGo
     [RequireComponent(typeof(GaussianTransform))]
     public class LanternController: MonoBehaviour
     {
+        [SerializeField] LanternManager manager;
         [SerializeField] GameObject lanternCenter;
         [SerializeField] GameObject controllerObject;
         private aStartingPoint startingPointController;
@@ -47,15 +48,17 @@ namespace FollowingNoGo
         private void Awake()
         {
             startingPointController = GetComponentInChildren<aStartingPoint>(true);
-            UseStart(false);
-
             lanternLight = GetComponentInChildren<Light>(true);
             activationFunction = GetComponent<GaussianTransform>();
-            animationController = GetComponent<Animator>();
+            animationController = GetComponentInChildren<Animator>();
 
-            UseChangingColour(false);
-
+            Debug.Log("Awake: " + gameObject.name);
+            isMoving = false;
+            isAnimating = false;
             currentAnimation = LanternAnimation.Reset;
+
+            UseStart(false);
+            UseChangingColour(false);
         }
 
         private void Update()
@@ -64,11 +67,7 @@ namespace FollowingNoGo
             {
                 Vector3 positionDiff = controllerObject.transform.position - lanternCenter.transform.position;
                 float positionDiffMag = Math.Abs(positionDiff.magnitude);
-
-                Debug.Log("PosDiff:" + positionDiffMag);
-
                 float activationValue = activationFunction.Gaussian(positionDiffMag);
-                Debug.Log("Activation:" + activationValue);
 
                 Color currentColour = isMoving ? movingColour : stillColour;
                 Color activatedColour = Color.Lerp(Color.black, currentColour, activationValue);
@@ -117,12 +116,7 @@ namespace FollowingNoGo
 
         public void Reset()
         {
-            TriggerAnimation(LanternAnimation.Reset);
-        }
-
-        void FinishedReset()
-        {
-            Debug.Log("Finished reset");
+            animationController.speed = 1;
         }
 
         public void TriggerAnimation(LanternAnimation animation)
@@ -150,6 +144,17 @@ namespace FollowingNoGo
                 animationController.speed = 1;
                 isMoving = true;
             }
+        }
+
+        internal void FinishCycle()
+        {
+            manager.FinishCycle();
+        }
+
+        internal void FinishReset()
+        {
+            // Connected to the "Start" animation state
+            // Not used currently, but could be usedful for gradually resetting lantern position at the end of each trial
         }
     } 
 

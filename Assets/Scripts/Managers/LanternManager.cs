@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 using UXF;
 
 namespace FollowingNoGo
@@ -13,10 +14,13 @@ namespace FollowingNoGo
         private bool leftIsReady = false;
         private bool rightIsReady = false;
 
-        public void Reset()
+        public void ResetLanterns()
         {
             leftIsReady = false;
             rightIsReady = false;
+
+            rightLantern.Reset();
+            leftLantern.Reset();
         }
 
         public void ShowLanterns()
@@ -37,9 +41,15 @@ namespace FollowingNoGo
             rightLantern.gameObject.SetActive(false);
         }
 
+        public void DoAnimation(LanternAnimation animation)
+        {
+            rightLantern.TriggerAnimation(animation);
+            leftLantern.TriggerAnimation(animation);
+        }
+
         public void EnterLantern(LanternLocaction location)
         {
-            Debug.Log("Enter lantern: " + location.ToString());
+            Debug.Log("Ready: " + location.ToString());
             if (location == LanternLocaction.Left)
             {
                 leftIsReady = true;
@@ -74,12 +84,33 @@ namespace FollowingNoGo
                 rightIsReady = false;
             }
         }
+
+        public void PauseAnimation(LanternLocaction target)
+        {
+            if (target == LanternLocaction.Right || target == LanternLocaction.Both)
+            {
+                rightLantern.PauseAnimation();
+            }
+            else if (target == LanternLocaction.Left || target == LanternLocaction.Both)
+            {
+                leftLantern.PauseAnimation();
+            }
+        }
+
+        public void FinishCycle()
+        {
+            if (Session.instance.InTrial)
+            {
+                taskController.BeginTrialTiming();
+            }
+        }
     }
 
     public enum LanternLocaction
     {
         Right,
         Left,
-        None
+        None,
+        Both
     }
 }

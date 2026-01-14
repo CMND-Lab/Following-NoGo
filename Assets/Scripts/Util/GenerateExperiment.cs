@@ -6,47 +6,104 @@ namespace FollowingNoGo
 {
     public class GenerateExperiment : MonoBehaviour
     {
-        public List<List<GameObject>> blocks;
+        public int numBlocks;
+        public int numTrialsPerBlock;
+
+        [Header("Generic Trial Settings")]
+        public float minStopTime = 2;
+        public float maxStopTime = 5;
+        public float endTrialDelay = 2.5f;
+
+        [Header("Double-Stop Settings")]
+        public List<float> doubleStopDelayIntervals = new List<float>();
 
         public void Generate(Session session)
         {
             // Retrieve blocks
-            BlockSetting[] blockSettings = GetComponentsInChildren<BlockSetting>(true);
-            int numberOfBlocks = blockSettings.Length;
-            Debug.Log("Creating " + numberOfBlocks + " blocks");
-
-            session.settings.SetValue("n_experimental_blocks", numberOfBlocks);
+            session.settings.SetValue("n_experimental_blocks", numBlocks);
 
             //*** EXPERIMENTAL BLOCKS ***//
             // Seperate words according to number of blocks
-            Block[] experimentalBlocks = new Block[numberOfBlocks];
-            for (int blockIndex = 0; blockIndex < numberOfBlocks; blockIndex++)
+            Block[] experimentalBlocks = new Block[numBlocks];
+            for (int blockIndex = 0; blockIndex < numBlocks; blockIndex++)
             {
-                // Get block settings from GameObject
-                BlockSetting blockSetting = blockSettings[blockIndex];
-                List<TrialSetting> blockTrials = blockSetting.GetTrialList();
-                
-                if (blockSetting.randomiseTrialOrder)
-                {
-                    // Shuffle list in place
-                    ShuffleList(blockTrials);
-                }
-
-                int numTrialsInBlock = blockTrials.Count;
-
-                Debug.Log("Block " + (blockIndex + 1) + " : Creating " + numTrialsInBlock + " trials");
-
-                Block newBlock = new Block((uint)numTrialsInBlock, session);
+                Block newBlock = session.CreateBlock();
                 newBlock.settings.SetValue("type", TrialType.Experiment);
 
-                // Assign settings for each trial
-                for (int trialIndex = 0; trialIndex < numTrialsInBlock; trialIndex++)
+                float randomStopTime;
+                List<StopEvent> trialEvents;
+                while (newBlock.trials.Count < numTrialsPerBlock)
                 {
-                    newBlock.GetRelativeTrial(trialIndex + 1).settings.SetValue("settings", blockTrials[trialIndex]);
+                    // 2 double stop simultaneous
+
+                    randomStopTime = RandomStopTime();
+                    trialEvents = new List<StopEvent>
+                    { 
+                        new StopEvent(randomStopTime, LanternLocaction.Both) 
+                    };
+                    MakeTrial(newBlock, randomStopTime, trialEvents);
+
+                    randomStopTime = RandomStopTime();
+                    trialEvents = new List<StopEvent> 
+                    { 
+                        new StopEvent(randomStopTime, LanternLocaction.Both) 
+                    };
+                    MakeTrial(newBlock, randomStopTime, trialEvents);
+
+                    // 2 double stop delayed for each delay interval
+                    foreach (float delay in doubleStopDelayIntervals)
+                    {
+                        // Left stops first
+                        randomStopTime = RandomStopTime();
+                        trialEvents = new List<StopEvent> 
+                        { 
+                            new StopEvent(randomStopTime, LanternLocaction.Left),
+                            new StopEvent(delay, LanternLocaction.Right)
+                        };
+                        MakeTrial(newBlock, randomStopTime, trialEvents);
+
+                        // Right stops first
+                        randomStopTime = RandomStopTime();
+                        trialEvents = new List<StopEvent>
+                        {
+                            new StopEvent(randomStopTime, LanternLocaction.Right),
+                            new StopEvent(delay, LanternLocaction.Left)
+                        };
+                        MakeTrial(newBlock, randomStopTime, trialEvents);
+                    }
+
+                    // 2 single-stop
+                    randomStopTime = RandomStopTime();
+                    trialEvents = new List<StopEvent>
+                    {
+                        new StopEvent(randomStopTime, LanternLocaction.Left)
+                    };
+                    MakeTrial(newBlock, randomStopTime, trialEvents);
+
+                    randomStopTime = RandomStopTime();
+                    trialEvents = new List<StopEvent>
+                    {
+                        new StopEvent(randomStopTime, LanternLocaction.Right)
+                    };
+                    MakeTrial(newBlock, randomStopTime, trialEvents);
                 }
 
-                experimentalBlocks[blockIndex] = newBlock;
+                newBlock.trials.Shuffle();
             }
+        }
+
+        public Trial MakeTrial(Block block, float duration, List<StopEvent> events)
+        {
+            TrialSetting trialSetting = new TrialSetting(duration + endTrialDelay, events);
+            Trial newTrial = block.CreateTrial();
+            newTrial.settings.SetValue("settings", trialSetting);
+
+            return newTrial;
+        }
+
+        public float RandomStopTime()
+        {
+            return Random.Range(minStopTime, maxStopTime);
         }
 
         public void ShuffleList<T>(List<T> list)

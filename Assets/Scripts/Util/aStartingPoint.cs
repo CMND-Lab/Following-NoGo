@@ -15,7 +15,7 @@ namespace FollowingNoGo
         protected Collider orbCollider;
         protected MeshRenderer orbRenderer;
 
-        protected StartingStateVR state = StartingStateVR.Waiting;
+        [SerializeField] protected StartingStateVR state = StartingStateVR.Waiting;
         protected Coroutine cueCoroutine;
 
 
@@ -78,27 +78,15 @@ namespace FollowingNoGo
                 {
                     case StartingStateVR.GetReady:
                         StopCoroutine(cueCoroutine);
-                        //ResetState();
+                        state = StartingStateVR.Waiting;
                         break;
 
                     case StartingStateVR.Go:
-                        //ToggleCollider(false);
-                        //ToggleRenderer(false);
                         state = StartingStateVR.Waiting;
                         break;
                 }
             }
         }
-
-        /**
-        public void LightOn()
-        {
-            OrbRenderer().material = responseOrbMatLight;
-        }
-        public void LightOff()
-        {
-            OrbRenderer().material = responseOrbMat;
-        }**/
 
         public void ToggleCollider(bool active)
         {

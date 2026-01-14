@@ -49,13 +49,30 @@ namespace FollowingNoGo
             session.End();
         }
 
-        public void StartOfTrial(Trial trial) {
+        public void StartOfTrial(Trial trial) 
+        {
             canvasController.gameObject.SetActive(false);
             taskController.RunTrial(trial);
         }
 
-        public void EndOfTrial(Trial trial) {
-            canvasController.SetCanvasState(CanvasState.InterTrial);
+        public void EndOfTrial(Trial trial) 
+        {
+            int currentTrialBlock = trial.block.number;
+            int nextTrialBlock = session.NextTrial.block.number;
+
+            if (currentTrialBlock != nextTrialBlock)
+            {
+                canvasController.SetCanvasState(CanvasState.InterTrial);
+            } else
+            {
+                StartCoroutine(ResetTrial(2.5f));
+            }
+        }
+
+        IEnumerator ResetTrial(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            taskController.ResetTrial();
         }
 
         public void StartOfBlock(Block block) {

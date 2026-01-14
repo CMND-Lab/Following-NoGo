@@ -8,22 +8,25 @@ namespace FollowingNoGo
     public class TimeManager : MonoBehaviour
     {
         public TaskController taskController;
+        public LanternManager lanternManager;
 
         private Coroutine countdown;
+        private Coroutine lanternEvent;
 
-        public float timerCount = 2.5f;
+        [SerializeField] List<StopEvent> events;
+        [SerializeField] float trialDuration = 2.5f;
 
-        public void SetDuration(float duration)
+        public void SetTrial(TrialSetting settings)
         {
-            timerCount = duration;
+            trialDuration = settings.GetDuration();
+            events = settings.GetEvents();
+
+            Debug.Log(settings.ToString());
         }
 
         public void BeginCountdown()
         {
-            //if (session.CurrentTrial.number > session.settings.GetInt("n_baseline_trials"))
-            //{
-                countdown = StartCoroutine(Countdown());
-            //}
+            countdown = StartCoroutine(Countdown());
         }
 
         public void StopCountdown()
@@ -36,9 +39,26 @@ namespace FollowingNoGo
 
         IEnumerator Countdown()
         {
-            yield return new WaitForSeconds(timerCount);
+            yield return new WaitForSeconds(trialDuration);
 
             taskController.TimerEnd();
+        }
+
+        public void RunEvents()
+        {
+            if (events != null & events.Count > 0) 
+            { 
+                foreach (StopEvent e in events)
+                {
+                    lanternEvent = StartCoroutine(StartEvent(e));
+                }
+            }
+        }
+
+        IEnumerator StartEvent(StopEvent e)
+        {
+            yield return new WaitForSeconds(e.GetDelay());
+            lanternManager.PauseAnimation(e.GetTarget());
         }
     }
 }
