@@ -46,7 +46,7 @@ namespace FollowingNoGo
             leftController.ShowInteractor(true);
 
             lanternManager.ShowLanterns();
-            lanternManager.EnableStart();
+            lanternManager.EnableStart(true);
             lanternManager.ResetLanterns();
         }
 

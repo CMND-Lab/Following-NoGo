@@ -42,8 +42,11 @@ namespace FollowingNoGo
         [SerializeField] LanternAnimation currentAnimation;
 
         // Tracked values
-        private float currentDistance;
+        private Vector3 currentDistance;
+        public Vector3 GetCurrentDistance() {  return currentDistance; }
+
         private float currentActivation;
+        public float GetCurrentActivation() { return currentActivation; }
 
         private void Awake()
         {
@@ -79,12 +82,12 @@ namespace FollowingNoGo
                 lanternLight.intensity = maxLightIntensity * activationValue;
 
                 // Save values
-                currentDistance = positionDiffMag;
+                currentDistance = positionDiff;
                 currentActivation = activationValue;
             }
             else
             {
-                currentDistance = float.NaN;
+                currentDistance = new Vector3(float.NaN, float.NaN, float.NaN);
                 currentActivation = float.NaN;
             }
         }

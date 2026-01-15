@@ -28,7 +28,7 @@ public class ExperimentLocation : MonoBehaviour
         }
     }
 
-    private void RecordObjectPositions() {
+    public void RecordObjectPositions() {
         bool experimentIsActive = experiment.activeSelf;
         experiment.SetActive(true);
 
@@ -47,7 +47,7 @@ public class ExperimentLocation : MonoBehaviour
         experiment.SetActive(experimentIsActive);
     }
 
-    public float AdjustExperimentHeight()
+    public void AdjustExperimentHeight()
     {
         Vector3 headPosition = cameraTransform.position;
         Debug.Log("Head position: " + headPosition.ToString());
@@ -61,12 +61,9 @@ public class ExperimentLocation : MonoBehaviour
             Debug.Log("New position for " + adjust.name + ": " + object_pos.position.ToString("F4"));
         }
 
-        RecordObjectPositions();
-
         Vector3 offsetPosition = new Vector3(-headPosition.x, 0.0f, -headPosition.z);
         cameraOffset.position += offsetPosition;
 
         Session.instance.participantDetails["height"] = headPosition.y;
-        return headPosition.y;
     }
 }

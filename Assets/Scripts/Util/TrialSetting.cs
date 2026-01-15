@@ -7,7 +7,12 @@ namespace FollowingNoGo
     public class TrialSetting
     {
         private float trialDuration = 15.0f;
-        private List<StopEvent> trialEvents;
+        private List<StopEvent> trialEvents = new List<StopEvent>();
+
+        public TrialSetting(float duration)
+        {
+            trialDuration = duration;
+        }
 
         public TrialSetting(float duration, List<StopEvent> events)
         {

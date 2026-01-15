@@ -20,8 +20,6 @@ namespace FollowingNoGo
         public Session session;
         public CanvasState canvasState;
 
-        private bool adustedLocation = false;
-        public ExperimentLocation experimentLocation;
         public CanvasInstructions canvasInstructions;
 
 
@@ -46,7 +44,6 @@ namespace FollowingNoGo
             nextButton.SetActive(false);
             backButton.SetActive(false);
 
-            canvasState = state;
             switch (state)
             {
                 case CanvasState.Init:
@@ -97,6 +94,8 @@ namespace FollowingNoGo
                     canvasInstructions.NewInstructions(canvasInstructions.finishedInstructionsControllers, this);
                     break;
             }
+
+            canvasState = state;
         }
 
         public void SetInstruction(string text)
@@ -125,12 +124,6 @@ namespace FollowingNoGo
 
         public void NextClick()
         {
-            if (!adustedLocation)
-            {
-                experimentLocation.AdjustExperimentHeight();
-                adustedLocation = true;
-            }
-            Debug.Log("Clicked next");
             backButton.SetActive(true);
             canvasInstructions.NextInstruction(this);
         }
@@ -142,7 +135,6 @@ namespace FollowingNoGo
 
         public void BackClick()
         {
-            Debug.Log("Clicked back");
             nextButton.SetActive(true);
             continueButton.SetActive(false);
             canvasInstructions.PreviousInstruction(this);
@@ -152,6 +144,9 @@ namespace FollowingNoGo
         {
             switch (canvasState)
             {
+                case CanvasState.Intro:
+                    SetCanvasState(CanvasState.Baseline); 
+                    break;
                 default:
                     //*** Start experiment ***//
                     gameObject.SetActive(false);
@@ -179,7 +174,7 @@ namespace FollowingNoGo
             {
                 case TrialType.Baseline:
                     // Set Canvas State to Practice
-                    SetCanvasState(CanvasState.Practice);
+                    SetCanvasState(CanvasState.Experiment);
                     break;
 
                 case TrialType.Practice:
@@ -201,16 +196,9 @@ namespace FollowingNoGo
 
             // Block 1 = baseline
             // Block 2 = practice
-            int experimentalBlockNum = session.currentBlockNum - 2;
-            int totalExperimentalBlocks = session.blocks.Count - 2;
-
-            if (experimentalBlockNum == totalExperimentalBlocks)
+            if (session.currentBlockNum == session.blocks.Count)
             {
                 SetCanvasState(CanvasState.Finished);
-            }
-            else if (experimentalBlockNum == Mathf.Round(totalExperimentalBlocks / 2))
-            {
-                SetCanvasState(CanvasState.Halfway);
             }
             else
             {

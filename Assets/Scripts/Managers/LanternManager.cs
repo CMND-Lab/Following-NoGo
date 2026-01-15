@@ -9,10 +9,13 @@ namespace FollowingNoGo
         [SerializeField] LanternController leftLantern;
         [SerializeField] LanternController rightLantern;
 
+        [SerializeField] CanvasController canvasController;
         [SerializeField] TaskController taskController;
 
         private bool leftIsReady = false;
         private bool rightIsReady = false;
+
+        private bool initiateTrial = false;
 
         public void ResetLanterns()
         {
@@ -25,12 +28,15 @@ namespace FollowingNoGo
 
         public void ShowLanterns()
         {
+            gameObject.SetActive(true);
             leftLantern.gameObject.SetActive(true);
             rightLantern.gameObject.SetActive(true);
         }
 
-        public void EnableStart()
+        public void EnableStart(bool initiatingTrial = true)
         {
+            initiateTrial = initiatingTrial;
+
             leftLantern.UseStart(true);
             rightLantern.UseStart(true);
         }
@@ -68,7 +74,13 @@ namespace FollowingNoGo
                 rightLantern.UseStart(false);
                 rightLantern.UseChangingColour(true);
 
-                Session.instance.BeginNextTrial();
+                if (initiateTrial)
+                {
+                    Session.instance.BeginNextTrial();
+                } else
+                {
+                    canvasController.ContinueClick();
+                }
             }
         }
 

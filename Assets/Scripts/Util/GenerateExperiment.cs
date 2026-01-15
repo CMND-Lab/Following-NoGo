@@ -6,10 +6,13 @@ namespace FollowingNoGo
 {
     public class GenerateExperiment : MonoBehaviour
     {
+        [Header("Baseline trial")]
+        public float baselineTrialLength;
+
+        [Header("Experimental Trial Settings")]
         public int numBlocks;
         public int numTrialsPerBlock;
 
-        [Header("Generic Trial Settings")]
         public float minStopTime = 2;
         public float maxStopTime = 5;
         public float endTrialDelay = 2.5f;
@@ -19,11 +22,18 @@ namespace FollowingNoGo
 
         public void Generate(Session session)
         {
-            // Retrieve blocks
-            session.settings.SetValue("n_experimental_blocks", numBlocks);
+            //*** BASELINE TRIALS ***//
+            Block baselineBlock = session.CreateBlock();
+            Trial baselineTrial = baselineBlock.CreateTrial();
+            TrialSetting baselineSettings = new TrialSetting(baselineTrialLength);
+            baselineTrial.settings.SetValue("settings", baselineSettings);
+            baselineBlock.settings.SetValue("type", TrialType.Baseline);
 
             //*** EXPERIMENTAL BLOCKS ***//
             // Seperate words according to number of blocks
+            session.settings.SetValue("n_experimental_blocks", numBlocks);
+            session.settings.SetValue("n_trials_per_block", numTrialsPerBlock);
+
             Block[] experimentalBlocks = new Block[numBlocks];
             for (int blockIndex = 0; blockIndex < numBlocks; blockIndex++)
             {

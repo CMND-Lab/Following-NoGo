@@ -69,6 +69,10 @@ namespace FollowingNoGo
         {
             InstructionText().text = newText;
         }
+        public string GetText()
+        {
+            return InstructionText().text;
+        }
     }
 
 }
