@@ -25,6 +25,7 @@ namespace FollowingNoGo
 
         private void Awake()
         {
+            canvasInstructions.LoadInstructions();
             gameObject.SetActive(true);
             SetCanvasState(CanvasState.Init);
         }

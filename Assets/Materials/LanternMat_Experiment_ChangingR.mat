@@ -10,7 +10,7 @@ Material:
   m_Name: LanternMat_Experiment_ChangingR
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 214df000637ee6444af7288defdbf7db, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 2
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
   - _EMISSION
@@ -18,7 +18,7 @@ Material:
   - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -35,8 +35,8 @@ Material:
     m_Floats: []
     m_Colors:
     - _BaseColor: {r: 0.7490196, g: 0.6544066, b: 0.1872549, a: 1}
-    - _Color: {r: 0.7490196, g: 0.18725488, b: 0.18725488, a: 1}
-    - _EmissionColor: {r: 0.000000007845229, g: 0.000000006854253, b: 0.0000000019613073, a: 1}
+    - _Color: {r: 0.7490196, g: 0.6544066, b: 0.18725488, a: 1}
+    - _EmissionColor: {r: 0.0000019165784, g: 0.0000016744842, b: 0.0000004791446, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5802497175771963561
 MonoBehaviour:

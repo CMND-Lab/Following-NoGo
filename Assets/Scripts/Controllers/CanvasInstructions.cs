@@ -42,6 +42,11 @@ namespace FollowingNoGo
 
         private void Awake()
         {
+            LoadInstructions();
+        }
+
+        public void LoadInstructions()
+        {
             initInstructionControllers = initInstructions.GetComponentsInChildren<InstructionController>(true);
             introInstructionControllers = introInstructions.GetComponentsInChildren<InstructionController>(true);
             baselineInstructionControllers = baselineInstructions.GetComponentsInChildren<InstructionController>(true);
