@@ -12,6 +12,7 @@ namespace FollowingNoGo
     {
         public LanternManager lanternManager;
 
+        [SerializeField] LanternAnimation lanternAnimation;
         [SerializeField] bool endTrial = false;
         [SerializeField] bool forceStop = false;
 
@@ -45,9 +46,9 @@ namespace FollowingNoGo
             rightController.ShowInteractor(true);
             leftController.ShowInteractor(true);
 
+            lanternManager.ResetLanterns();
             lanternManager.ShowLanterns();
             lanternManager.EnableStart(true);
-            lanternManager.ResetLanterns();
         }
 
         public void SetupTrial(Trial trial)
@@ -57,6 +58,9 @@ namespace FollowingNoGo
 
             // Set trial duration
             timeManager.SetTrial(trialSetting);
+
+            // Lantern reactivity
+            lanternManager.UseChangingColour(true);
         }
 
         public void TimerEnd()
@@ -93,7 +97,7 @@ namespace FollowingNoGo
         IEnumerator TaskTrialSequence(Trial trial)
         {
             endTrial = false;
-            lanternManager.DoAnimation(LanternAnimation.Circle);
+            lanternManager.DoAnimation(lanternAnimation);
 
             while (!endTrial) { yield return null; }
             timeManager.StopCountdown();

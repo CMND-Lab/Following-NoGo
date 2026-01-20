@@ -12,8 +12,8 @@ namespace FollowingNoGo
         [SerializeField] CanvasController canvasController;
         [SerializeField] TaskController taskController;
 
-        private bool leftIsReady = false;
-        private bool rightIsReady = false;
+        [SerializeField] bool leftIsReady = false;
+        [SerializeField] bool rightIsReady = false;
 
         private bool initiateTrial = false;
 
@@ -41,6 +41,12 @@ namespace FollowingNoGo
             rightLantern.UseStart(true);
         }
 
+        public void UseChangingColour(bool use)
+        {
+            leftLantern.UseChangingColour(use);
+            rightLantern.UseChangingColour(use);
+        }
+         
         public void HideLanterns()
         {
             leftLantern.gameObject.SetActive(false);
@@ -69,10 +75,7 @@ namespace FollowingNoGo
             {
                 Debug.Log("Both lanterns ready...");
                 leftLantern.UseStart(false);
-                leftLantern.UseChangingColour(true);
-
                 rightLantern.UseStart(false);
-                rightLantern.UseChangingColour(true);
 
                 if (initiateTrial)
                 {

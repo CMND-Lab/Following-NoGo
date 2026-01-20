@@ -36,6 +36,7 @@ namespace FollowingNoGo
             if (enable)
             {
                 lanternController.SetMaterial(responseOrbMatDim);
+                state = StartingStateVR.Waiting;
             }
         }
 

@@ -151,6 +151,7 @@ namespace FollowingNoGo
 
         internal void FinishCycle()
         {
+            Debug.Log("Finish cycle: " + gameObject.name);
             manager.FinishCycle();
         }
 
