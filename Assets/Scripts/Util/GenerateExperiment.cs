@@ -61,6 +61,7 @@ namespace FollowingNoGo
                     MakeTrial(newBlock, randomStopTime, trialEvents);
 
                     // 2 double stop delayed for each delay interval
+                    // The coroutines for each lantern are started simultaneously
                     foreach (float delay in doubleStopDelayIntervals)
                     {
                         // Left stops first
@@ -68,7 +69,7 @@ namespace FollowingNoGo
                         trialEvents = new List<StopEvent> 
                         { 
                             new StopEvent(randomStopTime, LanternLocaction.Left),
-                            new StopEvent(delay, LanternLocaction.Right)
+                            new StopEvent(randomStopTime + delay, LanternLocaction.Right)
                         };
                         MakeTrial(newBlock, randomStopTime, trialEvents);
 
@@ -77,7 +78,7 @@ namespace FollowingNoGo
                         trialEvents = new List<StopEvent>
                         {
                             new StopEvent(randomStopTime, LanternLocaction.Right),
-                            new StopEvent(delay, LanternLocaction.Left)
+                            new StopEvent(randomStopTime + delay, LanternLocaction.Left)
                         };
                         MakeTrial(newBlock, randomStopTime, trialEvents);
                     }

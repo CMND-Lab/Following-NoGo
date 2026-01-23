@@ -563,6 +563,7 @@ MonoBehaviour:
   colourRenderers:
   - {fileID: 2038162019612587533}
   - {fileID: 2147416826517834542}
+  - {fileID: 0}
   isMoving: 0
   currentAnimation: 0
 --- !u!114 &6944056218880852739
@@ -578,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mean: 0
-  sigma: 0.05
+  sigma: 0.01
 --- !u!95 &3333984775177196615
 Animator:
   serializedVersion: 5

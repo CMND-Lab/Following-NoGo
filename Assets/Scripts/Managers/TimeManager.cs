@@ -57,6 +57,7 @@ namespace FollowingNoGo
 
         IEnumerator StartEvent(StopEvent e)
         {
+            Debug.Log("Waiting for: " + e.GetDelay());
             yield return new WaitForSeconds(e.GetDelay());
             lanternManager.PauseAnimation(e.GetTarget());
         }

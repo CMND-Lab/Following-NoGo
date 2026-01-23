@@ -106,7 +106,7 @@ namespace FollowingNoGo
             {
                 rightLantern.PauseAnimation();
             }
-            else if (target == LanternLocaction.Left || target == LanternLocaction.Both)
+            if (target == LanternLocaction.Left || target == LanternLocaction.Both)
             {
                 leftLantern.PauseAnimation();
             }
