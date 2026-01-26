@@ -19,7 +19,11 @@ namespace FollowingNoGo
                 "pos_z",
                 "rot_x",
                 "rot_y",
-                "rot_z"
+                "rot_z",
+                "quat_x",
+                "quat_y",
+                "quat_z",
+                "quat_w"
             };
         
         
@@ -36,7 +40,11 @@ namespace FollowingNoGo
                 ("pos_z", p.z),
                 ("rot_x", r.x),
                 ("rot_y", r.y),
-                ("rot_z", r.z)
+                ("rot_z", r.z),
+                ("quat_x", r.x),
+                ("quat_y", r.y),
+                ("quat_z", r.z),
+                ("quat_w", r.z)
             };
 
             return values;

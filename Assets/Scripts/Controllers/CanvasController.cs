@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-using System;
 using UXF;
-using System.Drawing.Drawing2D;
 
 namespace FollowingNoGo
 {

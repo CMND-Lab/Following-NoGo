@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR;
-using System.Linq;
+﻿using UnityEngine;
 using UXF;
-using UnityEditor.XR.LegacyInputHelpers;
 
 public class ExperimentLocation : MonoBehaviour
 {
@@ -17,14 +13,6 @@ public class ExperimentLocation : MonoBehaviour
         if (cameraTransform == null)
         {
             cameraTransform = Camera.main.gameObject.transform;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            RecordObjectPositions();
         }
     }
 

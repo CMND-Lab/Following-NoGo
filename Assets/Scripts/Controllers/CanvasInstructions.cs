@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using UXF;
 using System.Linq;
 using System.Collections.Generic;
 

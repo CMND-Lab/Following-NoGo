@@ -14,12 +14,10 @@ namespace FollowingNoGo
 
         public override IEnumerable<string> CustomHeader => new string[]
             {
-                "pos_x",
-                "pos_y",
-                "pos_z",
-                "rot_x",
-                "rot_y",
-                "rot_z"
+                "dist_x",
+                "dist_y",
+                "dist_z",
+                "activation"
             };
         
         

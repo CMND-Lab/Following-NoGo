@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Drawing.Printing;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UXF;
 
 namespace FollowingNoGo
 {

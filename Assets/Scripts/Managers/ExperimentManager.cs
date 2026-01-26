@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 
@@ -58,14 +57,19 @@ namespace FollowingNoGo
         public void EndOfTrial(Trial trial) 
         {
             int currentTrialBlock = trial.block.number;
-            int nextTrialBlock = session.NextTrial.block.number;
 
-            if (currentTrialBlock != nextTrialBlock)
+            if (trial != session.LastTrial)
             {
-                canvasController.SetCanvasState(CanvasState.InterTrial);
-            } else
-            {
-                StartCoroutine(ResetTrial(2.5f));
+                int nextTrialBlock = session.NextTrial.block.number;
+
+                if (currentTrialBlock != nextTrialBlock)
+                {
+                    canvasController.SetCanvasState(CanvasState.InterTrial);
+                }
+                else
+                {
+                    StartCoroutine(ResetTrial(2.5f));
+                }
             }
         }
 
