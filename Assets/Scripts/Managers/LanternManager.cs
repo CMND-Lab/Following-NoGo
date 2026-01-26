@@ -101,6 +101,10 @@ namespace FollowingNoGo
 
         public void PauseAnimation(LanternLocaction target)
         {
+            if (Session.instance.InTrial)
+            {
+                Session.instance.CurrentTrial.result["time_stop_" + target.ToString()] = Time.time;
+            }
             if (target == LanternLocaction.Right || target == LanternLocaction.Both)
             {
                 rightLantern.PauseAnimation();

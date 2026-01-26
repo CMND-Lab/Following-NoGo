@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UXF;
 namespace FollowingNoGo
@@ -21,6 +22,14 @@ namespace FollowingNoGo
 
         public void Generate(Session session)
         {
+            //*** GENERIC SETTINGS ***//
+            session.settings.SetValue("min_stop_time", minStopTime);
+            session.settings.SetValue("max_stop_time", maxStopTime);
+            session.settings.SetValue("end_trial_delay", endTrialDelay);
+            session.settings.SetValue("double_stop_intervals", string.Join(", ", doubleStopDelayIntervals));
+            ////////////////////////////
+
+
             //*** BASELINE TRIALS ***//
             Block baselineBlock = session.CreateBlock();
             Trial baselineTrial = baselineBlock.CreateTrial();
@@ -68,7 +77,7 @@ namespace FollowingNoGo
                         trialEvents = new List<StopEvent> 
                         { 
                             new StopEvent(randomStopTime, LanternLocaction.Left),
-                            new StopEvent(randomStopTime + delay, LanternLocaction.Right)
+                            new StopEvent(delay, LanternLocaction.Right)
                         };
                         MakeTrial(newBlock, randomStopTime, trialEvents);
 
@@ -77,7 +86,7 @@ namespace FollowingNoGo
                         trialEvents = new List<StopEvent>
                         {
                             new StopEvent(randomStopTime, LanternLocaction.Right),
-                            new StopEvent(randomStopTime + delay, LanternLocaction.Left)
+                            new StopEvent(delay, LanternLocaction.Left)
                         };
                         MakeTrial(newBlock, randomStopTime, trialEvents);
                     }

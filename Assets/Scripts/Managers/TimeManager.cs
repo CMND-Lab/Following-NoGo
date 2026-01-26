@@ -46,19 +46,19 @@ namespace FollowingNoGo
         public void RunEvents()
         {
             if (events != null & events.Count > 0) 
-            { 
-                foreach (StopEvent e in events)
-                {
-                    lanternEvent = StartCoroutine(StartEvent(e));
-                }
+            {
+                StartCoroutine(StopEventsRoutine(events));   
             }
         }
 
-        IEnumerator StartEvent(StopEvent e)
+        IEnumerator StopEventsRoutine(List<StopEvent> eventList)
         {
-            Debug.Log("Waiting for: " + e.GetDelay());
-            yield return new WaitForSeconds(e.GetDelay());
-            lanternManager.PauseAnimation(e.GetTarget());
+            foreach (StopEvent e in eventList)
+            {
+                Debug.Log("Waiting for: " + e.GetDelay());
+                yield return new WaitForSeconds(e.GetDelay());
+                lanternManager.PauseAnimation(e.GetTarget());
+            }
         }
     }
 }
