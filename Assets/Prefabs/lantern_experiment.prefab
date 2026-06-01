@@ -58,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 4
+  m_RenderingLayerMask: 2
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: db96259cb2c39464593195c95665b7c2, type: 2}
@@ -279,6 +279,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 283730519133757076, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1156609384494393784, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -337,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3122465731615580604, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_RenderingLayerMask
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3488860717274075511, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_LocalScale.y
@@ -345,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3492950900478882617, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_RenderingLayers
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3926413926304764756, guid: 14c0b7ea5c94a284aacae078758bcc9a, type: 3}
       propertyPath: m_Materials.Array.data[0]
