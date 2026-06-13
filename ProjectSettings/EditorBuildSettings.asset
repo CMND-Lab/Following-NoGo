@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Scenes/SimpleRoom.unity
+    guid: 36eaa72cce906064c817848271f5ca79
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: eff7bc6f1071c134daadf80dd5b0bee3, type: 2}
     Varjo.XR.Settings: {fileID: 11400000, guid: 5cbfbd47a01a8a1439c7a5bf34ed89e8, type: 2}

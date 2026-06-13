@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.autodesk.fbx": {
+      "version": "4.2.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.meta.xr.mrutilitykit": {
       "version": "83.0.1",
       "depth": 1,
@@ -133,6 +140,16 @@
         "com.unity.test-framework": "1.1.33",
         "com.unity.testtools.codecoverage": "1.2.6"
       }
+    },
+    "com.unity.formats.fbx": {
+      "version": "4.2.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.autodesk.fbx": "4.2.1",
+        "com.unity.timeline": "1.7.1"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
       "version": "3.0.36",
@@ -391,6 +408,13 @@
         "com.unity.xr.arfoundation": "5.1.3"
       },
       "hash": "d074462f6c99b8e8bc6d83037457973496cb47d9"
+    },
+    "com.whinarn.unitymeshsimplifier": {
+      "version": "https://github.com/Whinarn/UnityMeshSimplifier.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "53fdb3122645bcd3ad2c258235200dff3dfbaa9b"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
